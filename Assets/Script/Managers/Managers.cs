@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    private static Managers Instance;
+    private static Managers s_Instance;
 
-    public static Managers GetInstance()
+    public static Managers Instance
     {
-        Init();
-        return Instance;
+        get
+        {
+            Init();
+            return s_Instance;
+        }
     }
 
     private void Start()
@@ -20,7 +23,7 @@ public class Managers : MonoBehaviour
 
     static void Init()
     {
-        if (Instance == null)
+        if (s_Instance == null)
         {
             GameObject go = GameObject.Find("m");
             if (go == null)
@@ -28,6 +31,8 @@ public class Managers : MonoBehaviour
                 go = new GameObject() { name = "m" };
                 go.AddComponent<Managers>();
             }
+            DontDestroyOnLoad(go);
+            s_Instance = go.GetComponent<Managers>();
         }
     }
 }
