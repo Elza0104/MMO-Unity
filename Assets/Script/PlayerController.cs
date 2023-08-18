@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float _speed = 1.0f;
+    public float _speed = 5.0f;
     private float _yAngle = 0.0f;
     void Start()
     {
-        
+        Managers.Input.KeyAction -= OnKeyboard;
+        Managers.Input.KeyAction += OnKeyboard;
     }
 
     void Update()
@@ -16,25 +17,32 @@ public class PlayerController : MonoBehaviour
         _yAngle += Time.deltaTime * _speed;
         // transform.eulerAngles = new Vector3(0.0f, -_yAngle, 0.0f);
         
+        
+        
+    }
+
+    void OnKeyboard()
+    {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            transform.Translate (Vector3.forward * Time.deltaTime * _speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.1f);
+            transform.position += Vector3.forward * Time.deltaTime * _speed;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.left);
-            transform.Translate(Vector3.left * Time.deltaTime * _speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.1f);
+            transform.position += Vector3.left * Time.deltaTime * _speed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.back);
-            transform.Translate(Vector3.back * Time.deltaTime * _speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.1f);
+            transform.position += Vector3.back * Time.deltaTime * _speed;
         }
+
         if (Input.GetKey(KeyCode.D))
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.right);
-            transform.Translate (Vector3.right * Time.deltaTime * _speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.1f);
+            transform.position += Vector3.right * Time.deltaTime * _speed;
         }
     }
 }

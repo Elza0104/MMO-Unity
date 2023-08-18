@@ -16,6 +16,22 @@ public class Managers : MonoBehaviour
         }
     }
 
+    private InputManager _input = new InputManager();
+    public static InputManager Input
+    {
+        get { return Instance._input; }
+    }
+    private ResourceManager _resources = new ResourceManager();
+    public static ResourceManager Resources
+    {
+        get { return Instance._resources; }
+    }
+
+    private void Update()
+    {
+        _input.OnUpdate();
+    }
+
     private void Start()
     {
         
