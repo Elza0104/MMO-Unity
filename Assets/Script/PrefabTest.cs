@@ -5,13 +5,14 @@ using UnityEngine;
 public class PrefabTest : MonoBehaviour
 {
     
+    GameObject prefab;
+
+    private GameObject tank;
     void Start()
     {
-        // GameObject prefab = Resources.Load<GameObject>("Assets/Resources/Prefab/tank.prefab");
-        // GameObject tank = Instantiate(prefab);
-        GameObject tank = Managers.Resources.Instantiate("tank");
+        tank = Managers.Resources.Instantiate("Prefab/tank.prefab");
         
-        Destroy(tank, 3.0f);
+        // Managers.Resources.Destroy(tank, 3.0f);
     }
 
     void Update()
