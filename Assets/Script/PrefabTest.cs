@@ -10,9 +10,9 @@ public class PrefabTest : MonoBehaviour
     private GameObject tank;
     void Start()
     {
-        tank = Managers.Resources.Instantiate("Prefab/tank.prefab");
+        tank = Managers.Resources.Instantiate("tank");
         
-        // Managers.Resources.Destroy(tank, 3.0f);
+        Managers.Resources.Destroy(tank, 3.0f);
     }
 
     void Update()

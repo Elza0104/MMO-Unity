@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
+            
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.1f);
             transform.position += Vector3.right * Time.deltaTime * _speed;
         }
