@@ -14,7 +14,7 @@ public class TestCollision : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             // Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
             //     Camera.main.nearClipPlane));
@@ -24,7 +24,7 @@ public class TestCollision : MonoBehaviour
             
             Debug.DrawRay(Camera.main.transform.position, ray.direction * 100, Color.magenta, 1.0f);
 
-            LayerMask mask = LayerMask.GetMask("Monster") | LayerMask.GetMask("Wall");
+            LayerMask mask = LayerMask.GetMask("Monster");
             
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100, mask))
