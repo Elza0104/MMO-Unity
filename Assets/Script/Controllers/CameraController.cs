@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,15 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        transform.position = _player.transform.position + _delta;
+        
+    }
+
+    private void LateUpdate()
+    {
+        if (_mode == Define.CameraMode.QueterView)
+        {
+            transform.position = _player.transform.position + _delta;
+            transform.LookAt(_player.transform);
+        }
     }
 }

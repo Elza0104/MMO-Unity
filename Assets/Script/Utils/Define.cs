@@ -6,6 +6,12 @@ public class Define : MonoBehaviour
 {
     public enum CameraMode
     {
-        QueterView
+        QueterView,
+        Raview
+    }
+    public enum MouseEvent
+    {
+        press,
+        click
     }
 }

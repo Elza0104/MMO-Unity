@@ -20,17 +20,19 @@ public class TestCollision : MonoBehaviour
             //     Camera.main.nearClipPlane));
             // Vector3 dir = mousePos - Camera.main.transform.position;
             // dir = dir.normalized;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
-            Debug.DrawRay(Camera.main.transform.position, ray.direction * 100, Color.magenta, 1.0f);
-
-            LayerMask mask = LayerMask.GetMask("Monster");
             
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100, mask))
-            {
-                Debug.Log($"Racast Camera @{hit.collider.gameObject.name}");
-            }
+            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //
+            // Debug.DrawRay(Camera.main.transform.position, ray.direction * 100, Color.magenta, 1.0f); //광선 표시
+            //
+            // LayerMask mask = LayerMask.GetMask("Monster"); //감지 안되게 가리기
+            //
+            // RaycastHit hit;
+            // if (Physics.Raycast(ray, out hit, 100, mask))
+            // {
+            //     Debug.Log($"Racast Camera @{hit.collider.gameObject.name}"); // 감지된 물체 출력
+            // }
         }
 
 
