@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     
     public Vector3 _destPos;
     private bool _moveToDest;
+
+    private float wait_run_ratio = 0;
     void Start()
     {
         Managers.Input.MouseAction -= OnMouseClicked;
@@ -43,13 +45,18 @@ public class PlayerController : MonoBehaviour
 
         if (_moveToDest)
         {
+            wait_run_ratio = Mathf.Lerp(wait_run_ratio, 1, 12 * Time.deltaTime);
             Animator anim = GetComponent<Animator>();
-            anim.Play("RUN");
+            anim.SetFloat("Wait_Run_Ratio", wait_run_ratio);
+            
+            anim.Play("Wait_Run");
         }
         else
         {
+            wait_run_ratio = Mathf.Lerp(wait_run_ratio, 0, 3 * Time.deltaTime);
             Animator anim = GetComponent<Animator>();
-            anim.Play("WAIT");
+            anim.SetFloat("Wait_Run_Ratio", wait_run_ratio);
+            anim.Play("Wait_Run");
         }
     }
 
