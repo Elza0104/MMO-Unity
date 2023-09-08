@@ -14,4 +14,10 @@ public class Define : MonoBehaviour
         press,
         click
     }
+
+    public enum UIEvent
+    {
+        Click,
+        Drag
+    }
 }
