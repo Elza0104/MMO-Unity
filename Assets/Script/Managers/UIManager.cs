@@ -7,6 +7,23 @@ public class UIManager
     private int _order = 0;
     private Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
 
+    public void SetCavas(GameObject go, bool sort = true)
+    {
+        Canvas canvas = Util.GetAddComponent<Canvas>(go);
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.overrideSorting = true;
+
+
+        if (sort)
+        {
+            canvas.sortingOrder = (_order);
+            _order++;
+        }
+        else
+        {
+            canvas.sortingOrder = 0;
+        }
+    }
     public T ShowPopupUI <T>(string prefabName = null)  where T : UI_Popup
     {
         if (string.IsNullOrEmpty(prefabName))
@@ -16,6 +33,13 @@ public class UIManager
         T popup = Util.GetAddComponent<T>(go);
         
         _popupStack.Push(popup);
+
+        GameObject root = GameObject.Find("@UI_Root");
+        if (root == null)
+            root = new GameObject { name = "@UI_Root" };
+        go.transform.SetParent(root.transform);
+        
+        
         return popup;
     }
 
