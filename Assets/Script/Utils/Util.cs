@@ -56,6 +56,8 @@ public class Util
         T component = go.GetComponent<T>();
         if (component == null)
             component = go.AddComponent<T>();
+        Debug.Log(component);
+
         return component;
     }
 }

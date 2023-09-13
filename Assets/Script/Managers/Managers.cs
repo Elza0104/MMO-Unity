@@ -27,6 +27,13 @@ public class Managers : MonoBehaviour
         get { return Instance._resources; }
     }
 
+    public UIManager _ui = new UIManager();
+
+    public static UIManager UI
+    {
+        get { return Instance._ui; }
+    }
+
     private void Update()
     {
         _input.OnUpdate();
