@@ -6,6 +6,18 @@ public class UIManager
 {
     private int _order = 0;
     private Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
+    private UI_Scene _sceneUI = null;
+
+    public GameObject Root
+    {
+        get
+        {
+            GameObject root = GameObject.Find("@UI_Root");
+            if (root == null)
+                root = new GameObject { name = "@UI_Root" };
+            return root;
+        }
+    }
 
     public void SetCavas(GameObject go, bool sort = true)
     {
@@ -24,24 +36,7 @@ public class UIManager
             canvas.sortingOrder = 0;
         }
     }
-    public T ShowPopupUI <T>(string prefabName = null)  where T : UI_Popup
-    {
-        if (string.IsNullOrEmpty(prefabName))
-            prefabName = typeof(T).Name;
 
-        GameObject go = Managers.Resources.Instantiate($"UI/Popup/{prefabName}");
-        T popup = Util.GetAddComponent<T>(go);
-        
-        _popupStack.Push(popup);
-
-        GameObject root = GameObject.Find("@UI_Root");
-        if (root == null)
-            root = new GameObject { name = "@UI_Root" };
-        go.transform.SetParent(root.transform);
-        
-        
-        return popup;
-    }
 
     public void ClosePopupUI()
     {
@@ -76,4 +71,29 @@ public class UIManager
             ClosePopupUI();
         }
     }
+    public T ShowSceneUI<T>(string prefabName = null) where T : UI_Scene
+    {
+        if (string.IsNullOrEmpty(prefabName))
+            prefabName = typeof(T).Name;
+
+        GameObject go = Managers.Resources.Instantiate($"UI/Inven/{prefabName}");
+        T sceneUI = Util.GetAddComponent<T>(go);
+        _sceneUI = sceneUI;
+
+        return sceneUI;
+    }
+    public T ShowPopupUI <T>(string prefabName = null)  where T : UI_Popup
+    {
+        if (string.IsNullOrEmpty(prefabName))
+            prefabName = typeof(T).Name;
+
+        GameObject go = Managers.Resources.Instantiate($"UI/Popup/{prefabName}");
+        T popup = Util.GetAddComponent<T>(go);
+        
+        _popupStack.Push(popup);
+        go.transform.SetParent(Root.transform);
+        
+        return popup;
+    }
+
 }
