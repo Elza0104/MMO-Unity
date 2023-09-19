@@ -19,11 +19,11 @@ public class UI_Inven : UI_Scene
 
         for (int i = 0; i < 30; i++)
         {
-            GameObject item = Managers.Resources.Instantiate($"UI/Inven/Item");
-            item.transform.SetParent(gridPanel.transform);
+            //GameObject item = Managers.Resources.Instantiate($"UI/Inven/Item");
+            GameObject item = Managers.UI.MakeSubItem<UI_Inven_Item>(parent: gridPanel.transform, "Item").gameObject;
 
-            UI_Inven_Item invenItem = Util.GetAddComponent<UI_Inven_Item>(item);
-            invenItem.SetInfo($"조희원{i}");
+            UI_Inven_Item invenUIInvenItem = item.GetAddComponent<UI_Inven_Item>();
+            invenUIInvenItem.SetInfo($"조희원{i}");
         }
     }
     void Start()

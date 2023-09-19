@@ -11,6 +11,7 @@ public abstract class UI_Base : MonoBehaviour
     protected TextMeshProUGUI GetText(int idx) { return Get<TextMeshProUGUI>(idx); }
     protected Button GetButton(int idx) { return Get<Button>(idx); }
     protected Image GetImage(int idx) { return Get<Image>(idx); }
+    protected GameObject GetObject(int idx) {return Get<GameObject>(idx);}
 
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {

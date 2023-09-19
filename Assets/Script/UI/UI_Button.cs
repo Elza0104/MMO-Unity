@@ -40,7 +40,7 @@ public class UI_Button : UI_Popup
             go.transform.position = data.position;
         }, Define.UIEvent.Drag);
         
-        GetButton((int)Buttons.Button).gameObject.AddUIEvent(OnButtonClicked);
+        GetButton((int)Buttons.Button).gameObject.BindUIEvent(OnButtonClicked);
     }
 
     

@@ -96,4 +96,17 @@ public class UIManager
         return popup;
     }
 
+    public T MakeSubItem<T>(Transform parent = null, string prefabName = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(prefabName))
+            prefabName = typeof(T).Name;
+        Debug.Log($"UI/SubItem/{prefabName}");
+        
+        GameObject go = Managers.Resources.Instantiate($"UI/SubItem/{prefabName}");
+        if (parent != null)
+            go.transform.SetParent(parent);
+
+        return Util.GetAddComponent<T>(go);
+    }
+
 }
