@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
     private Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
     protected TextMeshProUGUI GetText(int idx) { return Get<TextMeshProUGUI>(idx); }
@@ -53,4 +53,6 @@ public class UI_Base : MonoBehaviour
                 break;
         }
     }
+
+    public abstract void Init();
 }
