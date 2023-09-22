@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using System;
+using Unity.VisualScripting;
 
 public class ResourceManager 
 {
     public T Load<T>(string path) where T : Object
     {
-        Debug.Log(Resources.Load<T>(path));
+        if (typeof(T) == typeof(GameObject))
+        {
+            string name = path;
+            int index = name.LastIndexOf('/');
+            if (index >= 0)
+                name = name.Substring(index + 1);
+            GameObject go = Managers.Pool.GetOriginal(name);
+            if (go != null)
+                return go as T;
+        }
         return Resources.Load<T>(path);
     }
     
@@ -16,19 +26,18 @@ public class ResourceManager
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
-        GameObject prefab =  Load<GameObject>($"Prefabs/{path}");
-        if (prefab == null)
+        GameObject original =  Load<GameObject>($"Prefabs/{path}");
+        if (original == null)
         {
             Debug.Log($"Failled to load prefab : {path}");
             return null;
         }
 
-        GameObject go = Object.Instantiate(prefab, parent);
-        int index = go.name.IndexOf("(Clone)");
-        if (index > 0)
-        {
-            go.name = go.name.Substring(0, index);
-        }
+        if (original.GetComponent<Poolable>())
+            return Managers.Pool.Pop(original, parent).gameObject;
+
+        GameObject go = Object.Instantiate(original, parent);
+        go.name = original.name;
 
         return go;
     }
@@ -36,6 +45,13 @@ public class ResourceManager
     {
         if (go == null)
             return;
+
+        Poolable poolable = go.GetComponent<Poolable>();
+        if (poolable != null)
+        {
+            Managers.Pool.Push(poolable);
+            return;
+        }
         Object.Destroy(go, t);
     }
 }

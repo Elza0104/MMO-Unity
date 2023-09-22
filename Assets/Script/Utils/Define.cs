@@ -29,4 +29,10 @@ public class Define : MonoBehaviour
         Game,
         Shop,
     }
+    public enum Sound
+    {
+        Bgm,
+        Effect,
+        MaxCount
+    }
 }

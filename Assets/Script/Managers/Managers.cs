@@ -17,22 +17,19 @@ public class Managers : MonoBehaviour
     }
 
     private InputManager _input = new InputManager();
-    public static InputManager Input
-    {
-        get { return Instance._input; }
-    }
     private ResourceManager _resources = new ResourceManager();
-    public static ResourceManager Resources
-    {
-        get { return Instance._resources; }
-    }
-
     public UIManager _ui = new UIManager();
-
-    public static UIManager UI
-    {
-        get { return Instance._ui; }
-    }
+    private SceneManagerEX _scene = new SceneManagerEX();
+    private SoundManager _sound = new SoundManager();
+    private PoolManager _pool = new PoolManager();
+    
+    public static InputManager Input { get { return Instance._input; } }
+    public static ResourceManager Resources { get { return Instance._resources; } }
+    public static UIManager UI { get { return Instance._ui; } }
+    public static SceneManagerEX Scene { get { return Instance._scene; } }
+    public static SoundManager Sound { get { return Instance._sound; } }
+    public static PoolManager Pool { get { return Instance._pool; } }
+    
 
     private void Update()
     {
@@ -56,7 +53,18 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             s_Instance = go.GetComponent<Managers>();
+            s_Instance._sound.Init();
+            s_Instance._pool.Init();
         }
     }
-    
+
+    public static void Clear()
+    {
+        Sound.Clear();
+        UI.Clear();
+        Input.Clear();
+        Scene.Clear();
+        
+        Pool.Clear();
+    }
 }
