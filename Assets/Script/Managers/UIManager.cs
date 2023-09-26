@@ -61,7 +61,7 @@ public class UIManager
             return;
         }
 
-        ClosePopupUI();
+        CloseAllPopupUI();
     }
 
     void CloseAllPopupUI()
@@ -100,8 +100,7 @@ public class UIManager
     {
         if (string.IsNullOrEmpty(prefabName))
             prefabName = typeof(T).Name;
-        Debug.Log($"UI/SubItem/{prefabName}");
-        
+
         GameObject go = Managers.Resources.Instantiate($"UI/SubItem/{prefabName}");
         if (parent != null)
             go.transform.SetParent(parent);

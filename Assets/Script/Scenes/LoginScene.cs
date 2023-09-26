@@ -9,11 +9,6 @@ public class LoginScene : BaseScene
     {
         base.Init();
         SceneType = Define.Scene.Login;
-        
-        for (int i = 0; i < 10; i++)
-        {
-            Managers.Resources.Instantiate("unitychan");
-        }
     }
 
     public override void Clear()
