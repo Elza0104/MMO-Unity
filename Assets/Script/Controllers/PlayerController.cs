@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,9 +15,9 @@ public class PlayerController : MonoBehaviour
     {
         Managers.Input.MouseAction -= OnMouseClicked;
         Managers.Input.MouseAction += OnMouseClicked;
+        
+        
 
-        
-        
         //Managers.UI.ClosePopupUI(button);
     }
 
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private PlayerState _state = PlayerState.Idle;
+    
+
     void Update()
     {
         _yAngle += Time.deltaTime * _speed;
@@ -68,15 +72,19 @@ public class PlayerController : MonoBehaviour
             _state = PlayerState.Idle;
             // _speed = 5f;
             return;
-        }
-        // if (dir.magnitude < 0.1f)
-        // {
-        //     _speed = /*Mathf.Lerp(_speed, 0.5f, 0.2f)*/ 1f;
-        // }
-        
+        }   
+
         float moveDist = Math.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
-        transform.position += dir.normalized * moveDist;
+
+        NavMeshAgent nma = gameObject.GetAddComponent<NavMeshAgent>();
+        nma.Move(dir.normalized * moveDist);
         
+        Debug.DrawRay(transform.position + Vector3.up * 0.5f, dir.normalized, Color.green);
+        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dir, 1.0f, LayerMask.GetMask("Block")))
+        {
+            _state = PlayerState.Idle;
+            return;
+        }
         if (dir.magnitude > 0.01f)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 
