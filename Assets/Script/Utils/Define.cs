@@ -11,8 +11,10 @@ public class Define : MonoBehaviour
     }
     public enum MouseEvent
     {
-        press,
-        click
+        Press,
+        PointerDown,
+        PointerUp,
+        Click
     }
 
     public enum UIEvent
@@ -34,5 +36,12 @@ public class Define : MonoBehaviour
         Bgm,
         Effect,
         MaxCount
+    }
+
+    public enum Layer
+    {
+        Monster = 6,
+        Ground = 7,
+        Block = 8,
     }
 }

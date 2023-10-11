@@ -19,8 +19,14 @@ public abstract class BaseScene : MonoBehaviour
     public virtual void Init()
     {
         Object obj = GameObject.FindObjectOfType(typeof(EventSystem));
+        //Debug.Log(Managers.Resources.Instantiate("UI/EventSystem").name +" qwd");
         if (obj == null)
+        {
+            //Debug.Log(Managers.Resources.Instantiate("UI/EventSystem").name);
             Managers.Resources.Instantiate("UI/EventSystem").name = "@EventSystem";
+        }
+            
+        
     }
 
     public abstract void Clear();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager
@@ -79,6 +80,7 @@ public class UIManager
         GameObject go = Managers.Resources.Instantiate($"UI/Inven/{prefabName}");
         T sceneUI = Util.GetAddComponent<T>(go);
         _sceneUI = sceneUI;
+        
 
         return sceneUI;
     }
@@ -112,5 +114,13 @@ public class UIManager
         ClosePopupUI();
         _sceneUI = null;
     }
+
+    // public void ShowInven()
+    // {
+    //     if (_sceneUI.gameObject.SetActive() = true)
+    //     {
+    //         
+    //     }
+    // }
 
 }

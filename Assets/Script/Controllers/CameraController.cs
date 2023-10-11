@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] Define.CameraMode _mode = Define.CameraMode.QueterView;
     [SerializeField] private Vector3 _delta;
     [SerializeField] private GameObject _player;
-    [SerializeField] private GameObject _playersHead;
+    // [SerializeField] private GameObject _playersHead;
     void Start()
     {
         
@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
             {
                     
                 float dist = (hit.point - _player.transform.position).magnitude * 0.8f;
-                transform.position = _playersHead.transform.position + _delta.normalized * dist;
+                transform.position = _player.transform.position + _delta.normalized * dist;
             }
             else
             {
