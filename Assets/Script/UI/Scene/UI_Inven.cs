@@ -9,6 +9,8 @@ public class UI_Inven : UI_Scene
         GridPanel
     }
 
+    
+
     public override void Init()
     {
         base.Init();
@@ -26,14 +28,31 @@ public class UI_Inven : UI_Scene
             invenUIInvenItem.SetInfo($"조희원{i}");
         }
     }
+    
     void Start()
     {
+        GameObject _gridPanel = Get<GameObject>((int)GameObjects.GridPanel);
         Init();
+        
     }
 
+    
     void Update()
     {
         
+
+        // if (isOpen)
+        // {
+        //     
+        //     if(Input.GetKeyDown(KeyCode.I))
+        //         gameObject.SetActive(false);
+        // }
+        // if (isOpen = false)
+        // {
+        //     
+        //     if(Input.GetKeyDown(KeyCode.I))
+        //         gameObject.SetActive(true);
+        // }
     }
 }
     

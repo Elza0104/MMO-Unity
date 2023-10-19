@@ -44,4 +44,11 @@ public class Define : MonoBehaviour
         Ground = 7,
         Block = 8,
     }
+    public enum State
+    {
+        Die,
+        Moving,
+        Idle,
+        Skill
+    }
 }
