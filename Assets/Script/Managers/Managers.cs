@@ -16,6 +16,7 @@ public class Managers : MonoBehaviour
         }
     }
 
+    private GameManager _gameManager = new GameManager();
     private InputManager _input = new InputManager();
     private ResourceManager _resources = new ResourceManager();
     public UIManager _ui = new UIManager();
@@ -24,6 +25,7 @@ public class Managers : MonoBehaviour
     private PoolManager _pool = new PoolManager();
     private DataManager _data = new DataManager();
     
+    public static GameManager GM { get { return Instance._gameManager; } }
     public static InputManager Input { get { return Instance._input; } }
     public static ResourceManager Resources { get { return Instance._resources; } }
     public static UIManager UI { get { return Instance._ui; } }
@@ -51,7 +53,7 @@ public class Managers : MonoBehaviour
             if (go == null)
             {
                 go = new GameObject() { name = "m" };
-                go.AddComponent<Managers>();
+                    go.AddComponent<Managers>();
             }
             DontDestroyOnLoad(go);
             s_Instance = go.GetComponent<Managers>();

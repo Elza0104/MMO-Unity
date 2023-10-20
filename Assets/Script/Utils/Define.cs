@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Principal;
 using UnityEngine;
 
 public class Define : MonoBehaviour
@@ -50,5 +51,11 @@ public class Define : MonoBehaviour
         Moving,
         Idle,
         Skill
+    }
+    public enum WorldObject
+    {
+        Unknown,
+        Player,
+        Monster,
     }
 }

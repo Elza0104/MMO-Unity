@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public static class Extension 
+public static class Extension
 {
     public static void BindUIEvent(this GameObject go, Action<PointerEventData> action,
         Define.UIEvent type = Define.UIEvent.Click)
@@ -17,4 +17,10 @@ public static class Extension
     {
         return Util.GetAddComponent<T>(go);
     }
+
+    public static bool isValid(this GameObject go)
+    {
+        return go != null && go.activeSelf;
+    }
+
 }

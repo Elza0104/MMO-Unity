@@ -12,9 +12,9 @@ public class PlayerStat : Stat
     void Start()
     {
         _level = 1;
-        _hp = 100;
-        _maxHp = 100;
-        _attack = 10;
+        _hp = 200;
+        _maxHp = 200;
+        _attack = 25;
         _defence = 5;
         _moveSpeed = 5.0f;
         _exp = 0;
@@ -24,5 +24,10 @@ public class PlayerStat : Stat
     void Update()
     {
         
+    }
+
+    protected override void OnDead(Stat attacker)
+    {
+        Debug.Log("P_Dead");
     }
 }

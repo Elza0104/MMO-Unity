@@ -17,6 +17,7 @@ public class PlayerController : BaseController
     
     void Start()
     {
+        WorldObjectType = Define.WorldObject.Player;
         _playerStat = gameObject.GetComponent<PlayerStat>();
         
         Managers.Input.MouseAction -= OnMouseEvent;
@@ -27,21 +28,15 @@ public class PlayerController : BaseController
         //Managers.UI.ClosePopupUI(button);
     }
 
-    void Update()
-    {
-        
-    }
-
     private void OnHitEvent()
     {
         if (_lockOnTarget != null)
         {
             Stat targetStat = _lockOnTarget.GetComponent<Stat>();
-            PlayerStat myStat = gameObject.GetComponent<PlayerStat>();
-
-            int damege = Mathf.Max(0, myStat.Attack - targetStat.Defense);
-            targetStat.Hp -= damege;
+            targetStat.OnAttacked(_playerStat);
         }
+        
+        
         
         
         if (_stopSkill)
@@ -52,7 +47,6 @@ public class PlayerController : BaseController
 
     protected override void UpdateMoving()
     {
-        Debug.Log("moved");
         if (_lockOnTarget != null)
         {
             _destPos = _lockOnTarget.transform.position;
@@ -69,14 +63,8 @@ public class PlayerController : BaseController
         {
             State = Define.State.Idle;
             return;
-        }   
+        }
 
-        float moveDist = Math.Clamp(_playerStat.MoveSpeed * Time.deltaTime, 0, dir.magnitude);
-        Debug.Log(moveDist);
-
-        NavMeshAgent nma = gameObject.GetAddComponent<NavMeshAgent>();
-        nma.Move(dir.normalized * moveDist);
-        
         Debug.DrawRay(transform.position + Vector3.up * 0.5f, dir.normalized, Color.green);
         if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dir, 1.0f, _mask))
         {
@@ -84,11 +72,10 @@ public class PlayerController : BaseController
                 State = Define.State.Idle;
             return;
         }
-        if (dir.magnitude > 0.1f)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 
-                30 * Time.deltaTime);
-        }
+        
+        float moveDist = Math.Clamp(_playerStat.MoveSpeed * Time.deltaTime, 0, dir.magnitude);
+        transform.position += dir.normalized * moveDist;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 50 * Time.deltaTime);
     }
 
     protected override void UpdateIdle()

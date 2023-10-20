@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterContoller : BaseController
 {
@@ -12,6 +13,7 @@ public class MonsterContoller : BaseController
     [SerializeField] private float _attackRange = 2;
     void Start()
     {
+        WorldObjectType = Define.WorldObject.Monster;
         _stat = gameObject.GetComponent<Stat>();
 
         if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
@@ -20,7 +22,7 @@ public class MonsterContoller : BaseController
 
     protected override void UpdateIdle()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = Managers.GM.GetPlayer();
         if (player == null)
             return;
 
@@ -35,7 +37,28 @@ public class MonsterContoller : BaseController
 
     protected override void UpdateMoving()
     {
-        
+        if (_lockOnTarget != null)
+        {
+            _destPos = _lockOnTarget.transform.position;
+            float distance = (_destPos - transform.position).magnitude;
+            if (distance <= _attackRange)
+            {
+                State = Define.State.Skill;
+                
+                return;
+            }   
+        }
+        Vector3 dir = _destPos - transform.position;
+        if (dir.magnitude < 0.1f)
+        {
+            State = Define.State.Idle;
+            return;
+        } 
+        NavMeshAgent nma = gameObject.GetAddComponent<NavMeshAgent>();
+        nma.SetDestination(_destPos);
+        nma.speed = _stat.MoveSpeed;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 
+            10 * Time.deltaTime);
     }
     protected override void UpdateSkill()
     {
@@ -52,9 +75,8 @@ public class MonsterContoller : BaseController
         if (_lockOnTarget != null)
         {
             Stat targetStat = _lockOnTarget.GetComponent<Stat>();
-            int damage = Mathf.Max(0, _stat.Attack - targetStat.Defense);
-            targetStat.Hp -= damage;
-
+            targetStat.OnAttacked(_stat);
+            
             if (targetStat.Hp > 0)
             {
                 float distance = (_lockOnTarget.transform.position - transform.position).magnitude;

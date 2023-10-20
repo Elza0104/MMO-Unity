@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    
     [SerializeField]
     protected GameObject _lockOnTarget;
     
@@ -18,6 +12,8 @@ public class BaseController : MonoBehaviour
     
     [SerializeField]
     protected Define.State _state = Define.State.Idle;
+
+    public Define.WorldObject WorldObjectType { get; protected set; } = Define.WorldObject.Unknown;
 
     public virtual Define.State State
     {

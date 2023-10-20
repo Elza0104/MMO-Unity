@@ -17,6 +17,11 @@ public class GameScene : BaseScene
         Data.Stat stat = dic[1];
 
         gameObject.GetAddComponent<CursorController>();
+
+        GameObject player = Managers.GM.Spawn(Define.WorldObject.Player, "unitychan");
+        Camera.main.gameObject.GetAddComponent<CameraController>().SetPlayer(player);
+        
+        Managers.GM.Spawn(Define.WorldObject.Monster, "Knight");
     }
 
     public override void Clear()
